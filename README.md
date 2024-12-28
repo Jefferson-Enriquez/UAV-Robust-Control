@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Robust Control Using a H∞ Mixed Sensitivity Approach for a UAV with a Suspended Payload  
 **ID**: 9285  
 
@@ -15,3 +16,7 @@
 - Juan C. Cutipa Luque 
 
 matlab version 2022A
+=======
+# UAV Robust Control
+[![DOI](https://zenodo.org/badge/778298071.svg)](https://zenodo.org/doi/10.5281/zenodo.10886927)
+>>>>>>> a64f00b8ab91005c379891c396c5dc1a2c9f37ce
