@@ -1,16 +1,16 @@
-function [ws,wc,wt]=weighting5();
-% Weight functions WC WS and WT for VSA system
+function [ws,wc,wt]=weighting();
+% Weight functions WC WS and WT for system
 %
 %           --------     WS     ------------
 %
 gainnn=20; % 20
-const1= 0.6; % 5.5 para drone con valores del paper
+const1= 0.6; 
 const2=5.1;
-ms=23*gainnn;    % 45  3.3 garante um overshot Mp < 6dB
+ms=23*gainnn;    
 wb1=0.035*const1;  % 0.0001
 wb2=0.044*const1;  %  0.0001
 wb3=0.27*const1;   %  0.0001
-ee=1e-2; %10   6  con 2 da un mejor valor pero es bueno?
+ee=1e-2; 
 ki=1;
 num1=conv([1/sqrt(ms) 10^(ki-1)*wb1],[1/sqrt(ms) 10^(ki-1)*wb1]);
 den1=conv([1 10^(ki-1)*wb1*sqrt(ee)],[1 10^(ki-1)*wb1*sqrt(ee)]);
@@ -25,11 +25,10 @@ den3=conv([1 10^(ki-1)*wb3*sqrt(ee)],[1 10^(ki-1)*wb3*sqrt(ee)]);
 ws3=nd2sys(num3,den3);
 %
 ws=daug(ws1,ws2,ws3);
-%ws=ws1; %----------------------------------aquiiiiii
 %
 %
 %           --------     WT     ------------
-mt=20*gainnn;    % 15 1.28garante um overshot Mp < 2dB
+mt=20*gainnn;    
 wbt=900*const2; % 400*const
 wbt2=900*const2; % 400*const
 wbt3=1000*const2+6; % 2.4
@@ -46,7 +45,7 @@ wt1=nd2sys(num1,den1);
 wt2=nd2sys(num2,den2);
 wt3=nd2sys(num3,den3);
 wt=daug(wt1,wt2,wt3);
-%wt=wt2;%----------------------------------aquiiiiii
+
 
 %           --------     WC     ------------
 mc=390*gainnn;  %280
@@ -66,10 +65,10 @@ wc=daug(wc,wc2,wc3);
 %**************************************************************************
 
 %**************************************************************************
-%                  ----    plot de WS  WC WT    -----
+%                  ----    plot  WS  WC WT    -----
 w=logspace(-7,7,100);
 %
-sv1s=sigma(ws1,w,1);   % inversa.
+sv1s=sigma(ws1,w,1);   
 sv2s=sigma(ws2,w,1);
 sv3s=sigma(ws3,w,1);
 
@@ -89,6 +88,3 @@ title('WS WT ')
 xlabel('rad/sec')
 ylabel('dB')
 grid
-%axis([0.0001 10000 -50 50]) %camio AXIS
-% disp('Press Return to continue')
-% pause

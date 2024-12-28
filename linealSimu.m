@@ -1,12 +1,8 @@
-% function[xdot]=lineal44simu(x,Vx,y,Vy,z,Vz,phi_l,phi_d_l,tetha_l,tetha_d_l,Fx,Fy,Fz)
-function[xdot]=lineal5simu(x,y,z,phi_l,tetha_l,Vx,Vy,Vz,phi_d_l,tetha_d_l,Fx,Fy,Fz)
+function[xdot]=linealSimu(x,y,z,phi_l,tetha_l,Vx,Vy,Vz,phi_d_l,tetha_d_l,Fx,Fy,Fz)
 %-------------------------MATRICES---------------- 
-%constantes
-ml=0.2; mc=2.5; L=2; g=9.8;  % datos reales del paper
-% ml=0.0001; mc=0.7; L=0.0001; g=9.8; %considerando solo dron , estabiliza en 2 s
-%ml=0.1; mc=0.7; L=0.1; g=9.8; %considerando dron con pendulo libiano da
-% da un gama de 13
-yaw=0; % no es una entrada es cosntante
+%constants
+ml=0.2; mc=2.5; L=2; g=9.8;  % data from the paper
+yaw=0; % is a constant
 
 nu=[Vx; Vy; Vz; phi_d_l; tetha_d_l] ;
 
@@ -32,7 +28,6 @@ G_n=[0;
     L*g*ml*cos(tetha_l)*sin(phi_l);
     L*g*ml*cos(phi_l)*sin(tetha_l)];
 
-%%%
 %%%    D  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 d=2; % 1.2
 D=diag([0 0 0 d d]);
@@ -44,32 +39,16 @@ D=diag([0 0 0 d d]);
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%    tau  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% f=[0,0,fz_in]';
-% F=R*f;
-% tau=[F' 0 0]';
+
 tau=[Fx Fy Fz 0 0]';
 
 %%%%%%    tau_a  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%tau_a=[wr;wr;wr;0;0];
 tau_a=[0;0;0;0;0];
 
 %PARA LAS VARIABLES DE ESTADO:
 Nu_dot= inv(M_n)*(-C_nv*nu-G_n-D*nu+tau+tau_a); % 
 %-------------------------------------------------
-% x1=x; x2=Vx; x3=y; x4=Vy; x5=z; x6=Vz;
-% x7=phi_l; x8=phi_d_l; x9=tetha_l; x10=tetha_d_l;
-%varibles de estado finales
-% xdot= [Vx;
-%        Nu_dot(1);
-%        Vy;
-%        Nu_dot(2);
-%        Vz;
-%        Nu_dot(3);
-%        phi_d_l;
-%        Nu_dot(4);
-%        tetha_d_l;
-%        Nu_dot(5)
-%        ];
+
 xdot=[nu;
       Nu_dot];

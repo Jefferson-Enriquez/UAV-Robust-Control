@@ -9,7 +9,7 @@ sv11 = 20*log10(sv11);
 figure;
 semilogx(w, sv11,'--','linewidth',2)
 %% Sensitivity S
-title('x,y and z speeds')
+title('x,y and z Velocities')
 grid
 xlabel('Frequency (radian/second)')
 ylabel('Amplitude (decibel)')
@@ -19,13 +19,13 @@ hold on
 %           --------     WS     ------------
 %
 gainnn=20; % 20
-const1= 0.6; % 5.5 para drone con valores del paper
+const1= 0.6; 
 const2=5.1;
-ms=23*gainnn;    % 45  3.3 garante um overshot Mp < 6dB
+ms=23*gainnn;    % 45  3.3 guarantees an overshot Mp < 6dB
 wb1=0.035*const1;  % 0.0001
 wb2=0.044*const1;  %  0.0001
 wb3=0.27*const1;   %  0.0001
-ee=1e-2; %10   6  con 2 da un mejor valor pero es bueno?
+ee=1e-2;
 ki=1;
 num1=conv([1/sqrt(ms) 10^(ki-1)*wb1],[1/sqrt(ms) 10^(ki-1)*wb1]);
 den1=conv([1 10^(ki-1)*wb1*sqrt(ee)],[1 10^(ki-1)*wb1*sqrt(ee)]);
@@ -47,14 +47,7 @@ sv3s=sigma(ws3,w,1);
 semilogx( w, (20*log10(sv1s)),w, 20*log10(sv2s),w, 20*log10(sv3s),'linewidth',2);
 legend('Sx','Sy','Sz','WSx','WSy','WSz')
 
-
-
-
-
 % -----------------------------------------------------------------------------------------------------------
-% -------------------------------------------------------------------------------------------------------------------
-% ------------------------------------------------------------------------------------------------------------------
-
 
 sensi=pck(al-bl*cl, bl, -cl, eye(3));
 tsensi=pck(al-bl*cl, bl, cl, 0*eye(3));
@@ -65,14 +58,14 @@ sv = 20*log10(sv);
 figure;
 semilogx(w, sv,'--','linewidth',2)
 %% Complementary Sensitivity T
-title('x,y and z speeds' )
+title('x,y and z Velocities' )
 grid
 xlabel('Frequency (radian/second)')
 ylabel('Amplitude (decibel)')
 hold on
 %
 %           --------     WT     ------------
-mt=20*gainnn;    % 15 1.28garante um overshot Mp < 2dB
+mt=20*gainnn;    % 15 1.28garantees um overshot Mp < 2dB
 wbt=900*const2; % 400*const
 wbt2=900*const2; % 400*const
 wbt3=1000*const2+6; % 2.4
@@ -98,11 +91,8 @@ legend('Tx','Ty','Tz','WTx','WTy','WTz')
 
 
 % -----------------------------------------------------------------------------------------------------------
-% -------------------------------------------------------------------------------------------------------------------
-% ------------------------------------------------------------------------------------------------------------------
 
-
-%%%%%%%%%%%%%%%%%%%------- Plot the singular Values WsS 
+%------- Plot the singular Values WsS 
 wssensi=mmult(ws,sensi);
 wtsensi=mmult(wt,tsensi);
 wcsensi=mmult(wc,csensi);
@@ -111,7 +101,6 @@ sv1= sigma(wssensi,w);
 figure;
 semilogx(w,sv1,'linewidth',2)
 
-%title('Ws*S' )
 title('||W_s S|| < 1' )
 grid
 xlabel('Frequency (radian/second)')
